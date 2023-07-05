@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.ini-development": "php",
+        "iomanip": "cpp"
+    }
+}
