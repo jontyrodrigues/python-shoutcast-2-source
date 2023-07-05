@@ -1,7 +1,6 @@
 import socket
 from packet import packet
 from encrypt import encrypt
-from MessageFlag import MessageFlag
 import struct
 import sys
 

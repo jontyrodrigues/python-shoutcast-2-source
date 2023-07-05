@@ -1,15 +1,17 @@
 from broadcast import broadcast
 import time
-import threading
 from mutagen.mp3 import MP3
-import pyaudio
-from pydub import AudioSegment
-import io
-import subprocess
+from dotenv import load_dotenv
 import os
-import wave
 
 
+load_dotenv()
+
+USERNAME = os.getenv("USERNAME")
+PASSWORD = os.getenv("PASSWORD")
+IP = os.getenv("IP")
+PORT = int(os.getenv("PORT"))
+STREAM_ID = int(os.getenv("STREAM_ID"))
 
 def main():
     b = broadcast
@@ -19,7 +21,7 @@ def main():
     # the ip is the ip of the server
     # the port is the port of the server
     # the stream id is the id of the stream
-    b.bc(b, "username", "password", "192.168.0.1", 8000, 1)
+    b.bc(b, USERNAME, PASSWORD, IP, PORT, STREAM_ID)
     b.authenticateStream(b)
     if(b.authenticated):
         print("Authenticated")
@@ -49,7 +51,7 @@ def main():
     # we close the audio file
     audio_file.close()
     # we get the duration of the audio file
-    audio = MP3("crowd.mp3")
+    audio = MP3("audio.mp3")
     duration = audio.info.length
     # we calculate the bitrate of the audio file
     bitrate = len(audio_bytes) / duration * 8
