@@ -236,37 +236,37 @@ class broadcast:
             reason = response[2] if response[1] == "2.1" else response[1]
 
             if reason == "Parse Error":
-                raise ServerParseException()
+                raise Exception("There was a parse error in the request.")
 
             if reason == "Sequence Error":
-                raise SequenceException(flags)
+                raise Exception("The sequence number was incorrect.")
 
             if reason == "Deny":
                 if flags != MessageFlag.SetMimeType:
                     authenticated = False
-                    disconnect()
-                    raise AuthDenyException(user, password)
+                    self.broadcastDisconnect()
+                    raise Exception("The username or password was incorrect.")
 
             if reason == "Version Error":
-                raise AuthDenyException(version)
+                raise Exception("The version of the protocol is not supported.")
 
             if reason == "Stream Moved":
-                raise AuthDenyException(stream_num)
+                raise Exception("The stream has moved.")
 
             if reason == "Buffer Size Error":
-                raise BufferNegotiationException()
+                raise Exception("The buffer size is invalid.")
 
             if reason == "Bit Rate Error":
-                raise BitrateDeniedException()
+                raise Exception("The bit rate is invalid.")
 
             if reason == "Compatibility mode not enabled":
-                raise CompatibilityModeDisabledException()
+                raise Exception("The server does not support compatibility mode.")
 
             if reason == "Configuration Error":
-                raise ConfigurationIncompleteException()
+                raise Exception("The configuration is invalid.")
 
             if reason == "Stream In Use":
-                raise StreamInUseException(stream_num)
+                raise Exception("The stream is already in use.")
 
             raise Exception(response[2])
 
