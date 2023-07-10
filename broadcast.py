@@ -271,6 +271,6 @@ class broadcast:
             raise Exception(response[2])
 
         # Clear the buffer
-        incoming_buffer = bytearray(128)
+        self.incoming_buffer = bytearray(128)
 
         return response

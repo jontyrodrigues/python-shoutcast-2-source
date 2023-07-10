@@ -13,6 +13,11 @@ IP = os.getenv("IP")
 PORT = int(os.getenv("PORT"))
 STREAM_ID = int(os.getenv("STREAM_ID"))
 
+STREAM_NAME = os.getenv("STREAM_NAME")
+STREAM_GENRE = os.getenv("STREAM_GENRE")
+STREAM_URL = os.getenv("STREAM_URL")
+STREAM_PUBLIC = bool(os.getenv("STREAM_PUBLIC"))
+
 def main():
     b = broadcast
     stream_from_file = False
@@ -35,7 +40,7 @@ def main():
         return False
     b.NegotiateBufferSize(b, 1, 2)
     # b.NegotiatePayloadSize(b, 16377, 16377)
-    b.confIcyData(b, "Test", "Test", "http://shoutcast.com/stream", True)
+    b.confIcyData(b, STREAM_NAME, STREAM_GENRE, STREAM_URL, STREAM_PUBLIC)
 
     b.Standby(b)
 
